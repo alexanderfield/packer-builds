@@ -1,0 +1,31 @@
+{
+    "builders": [
+      {
+        "name":                    "alpine-3.2.2",
+        "type":                    "virtualbox-iso",
+        "guest_additions_path":    "VBoxGuestAdditions_{{.Version}}.iso",
+        "guest_os_type":           "Linux_64",
+        "iso_url":                 "http://wiki.alpinelinux.org/cgi-bin/dl.cgi/v3.2/releases/x86_64/alpine-3.2.2-x86_64.iso",
+        "iso_checksum":            "b3323f8b12ffccdcac813fd6423ac416a9863a881af973bdff9d8b01861d0a40",
+        "iso_checksum_type":       "sha256",
+        "ssh_username":            "root",
+        "ssh_password":            "changeme",
+        "ssh_wait_timeout":        "10000s",
+        "http_directory":          ".",
+        "boot_wait":               "10s",
+        "boot_command": [          ""],
+        "shutdown_command":        "/sbin/halt -h -p",
+        "disk_size":               40960,
+        "vboxmanage":              [["modifyvm", "{{.Name}}", "--memory", "1024"]]
+      }
+    ],
+
+    "post-processors": [
+      {
+        "type":                    "vagrant",
+        "output":                  "alpine-3.2.2.box",
+        "compression_level":       9,
+        "keep_input_artifact":     false
+      }
+    ]
+}
